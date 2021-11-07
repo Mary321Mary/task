@@ -1,0 +1,26 @@
+
+<form (ngSubmit)="Submit()" #carForm="ngForm">
+    <fieldset>
+        <legend> Form for car: </legend> <br>
+
+        <label for="name">Name </label>
+        <input type="text" [(ngModel)]="car.name" id="name" name="name" required > <br> <br>
+        
+        <label for="model">model </label>
+        <input type="tel" [(ngModel)]="car.model" id="model" name="model" required > <br> <br>
+        
+        <label for="generation">generation </label>
+        <input type="generation" [(ngModel)]="car.generation" id="generation" name="generation" required > <br> <br>
+        
+        <label for="mileage">mileage </label>
+        <input type="text" [(ngModel)]="car.mileage" id="mileage" name="mileage" required > <br> <br>
+
+        <label for="engine">engine </label>
+        <input type="text" [(ngModel)]="car.engine" id="engine" name="engine" required> <br> <br>
+        
+        <label for="price">price </label>
+        <input type="text" [(ngModel)]="car.price" id="price" name="price" required> <br> <br>
+        
+        <button type="submit" [disabled]="!carForm.form.valid">Submit</button> <br> <br>
+    </fieldset>
+</form>

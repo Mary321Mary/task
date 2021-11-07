@@ -1,0 +1,23 @@
+<a href="/edit" (click)="edit(-1)">Add car</a>
+<form>
+	<div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let car of cars">
+                    <td><a href="/product" (click)="description(car.id)">{{car.name}}</a></td>
+                    <td>{{car.price}}</td>
+                    <td><a href="/edit" (click)="edit(car.id)">Edit</a></td>
+                    <td><button (click)="Delete(car.id)">Delete car</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

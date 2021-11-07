@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head> 
+        <title>Getting Started: Serving Web Content</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+	</head>
+	<body>
+        <header>
+            <p class="greetings">You authorized as <br>{{username}}</p>
+            <a *ngIf="!isLoggedIn" href="/login">Please sing in</a>
+            <h1>Store of Products</h1>
+        </header>
+        <nav>
+            <ul>
+                <li *ngIf="admin"><a href="/admin">Show all users</a></li>
+                <li *ngIf="isLoggedIn"><a href="/products">Products</a></li>
+                <li *ngIf="isLoggedIn"><a href="/mycars" (click)="mycars()">My cars</a></li>
+                <li *ngIf="isLoggedIn"><a href="/login" (click)="logout()">Logout</a></li>
+            </ul>
+        </nav>
+
+        <router-outlet></router-outlet>
+    </body>
+</html>

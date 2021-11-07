@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head> 
+	    <title>Getting Started: Serving Web Content</title> 
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+        <form (ngSubmit)="Submit()" #carForm="ngForm">
+            <legend> Form for car: </legend>
+
+            <label for="model">Model:</label>
+            <select [(ngModel)]="car.model" name="model">
+                <option *ngFor="let model of criterias.carsModels" id="model" name="model" [ngValue]="model">{{model}}</option>
+            </select> <br>
+
+            <label for="generation">Generation:</label>
+            <select [(ngModel)]="car.generation" name="generation">
+                <option *ngFor="let generation of criterias.carsGenerations" id="generation" name="generation" [ngValue]="generation">{{generation}}</option>
+            </select> <br>
+
+            <label for="mileage">Mileage:</label>
+            <select [(ngModel)]="car.mileage" name="mileage">
+                <option *ngFor="let mileage of criterias.carsMileages" id="mileage" name="mileage" [ngValue]="mileage">{{mileage}}</option>
+            </select> <br>
+
+            <label for="engine">Engine:</label>
+            <select [(ngModel)]="car.engine" name="engine">
+                <option *ngFor="let engine of criterias.carsEngines" id="engine" name="engine" [ngValue]="engine">{{engine}}</option>
+            </select> <br>
+
+            <label for="priceFrom">Price from:</label>
+            <input type="text" [(ngModel)]="car.priceFrom" id="priceFrom" name="priceFrom" pattern="\d{1,}" /> <br>
+
+            <label for="priceTo">Price to:</label>
+            <input type="text" [(ngModel)]="car.priceTo" id="priceTo" name="priceTo" pattern="\d{1,}" /> <br>
+
+            <label for="sort">Sort:</label>
+            <select [(ngModel)]="car.sort" name="sort">
+                <option id="sort" name="sort" value="Desc">Desc</option>
+                <option id="sort" name="sort" value="Asc">Asc</option>
+            </select> <br>
+        
+            <button type="submit" [disabled]="!carForm.form.valid">Submit</button>
+        </form> <br>
+		<form>
+            <legend> Cars: </legend>
+			<div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let car of criterias.cars">
+                            <td><a href="/product" (click)="description(car.id)">{{car.name}}</a></td>
+                            <td>{{car.price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </body>
+</html>
