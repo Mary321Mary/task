@@ -6,6 +6,10 @@ import javax.persistence.EntityManager;
 
 import org.hibernate.Filter;
 import org.hibernate.Session;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +36,6 @@ public class CarService {
 	}
 
     public CarResponse findAll(CarDto carDto) {
-    	List<Car> cars;
     	if("".equals(carDto.getCarCriteria().getModel())) {
     		carDto.getCarCriteria().setModel("%");
     	}
@@ -45,7 +48,15 @@ public class CarService {
     	if("".equals(carDto.getCarCriteria().getEngine())) {
     		carDto.getCarCriteria().setEngine("%");
     	}
+    	Direction sort;
+    	if("Asc".equals(carDto.getCarCriteria().getSort())) {
+    		sort = Sort.Direction.ASC;
+    	} else {
+    		sort = Sort.Direction.DESC;
+    	}
     	Session session = entityManager.unwrap(Session.class);
+    	List<Car> cars;
+    	int totalPages;
     	if(carDto.getIsDeleted() == true) {
             Filter filter = session.enableFilter("carFilter");
             filter.setParameter("model", carDto.getCarCriteria().getModel());
@@ -54,7 +65,9 @@ public class CarService {
             filter.setParameter("engine", carDto.getCarCriteria().getEngine());
             filter.setParameter("priceFrom", carDto.getCarCriteria().getPriceFrom());
             filter.setParameter("priceTo", carDto.getCarCriteria().getPriceTo());
-            cars = this.carDao.findAll();
+            Page<Car> carsPages = this.carDao.findAll(PageRequest.of( carDto.getPage(), 5, sort, "price" ));
+            cars = carsPages.getContent();
+            totalPages = carsPages.getTotalPages();
             session.disableFilter("carFilter");
     	} else {
             Filter filter = session.enableFilter("carDeletedFilter");
@@ -65,9 +78,12 @@ public class CarService {
             filter.setParameter("engine", carDto.getCarCriteria().getEngine());
             filter.setParameter("priceFrom", carDto.getCarCriteria().getPriceFrom());
             filter.setParameter("priceTo", carDto.getCarCriteria().getPriceTo());
-            cars = this.carDao.findAll();
+            Page<Car> carsPages = this.carDao.findAll(PageRequest.of( carDto.getPage(), 5, sort, "price" ));
+            cars = carsPages.getContent();
+            totalPages = carsPages.getTotalPages();
             session.disableFilter("carDeletedFilter");
     	}
+    	System.out.println(cars);
     	List<String> carsModels = this.carDao.findAllModels();
     	List<String> carsGenerations = this.carDao.findAllGenerations();
     	List<String> carsMileages = this.carDao.findAllMileages();
@@ -76,7 +92,7 @@ public class CarService {
     	carsGenerations.add("");
     	carsMileages.add("");
     	carsEngines.add("");
-        return new CarResponse(cars, carsModels, carsGenerations, carsMileages, carsEngines);
+        return new CarResponse(cars, carsModels, carsGenerations, carsMileages, carsEngines, totalPages);
     }
 
     public Car findById(long id) {

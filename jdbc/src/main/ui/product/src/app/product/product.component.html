@@ -58,7 +58,10 @@
                             <td>{{car.price}}</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> <br>
+                <div>
+                    <td *ngFor="let p of pages; let i = index" ><a href="/products" (click)="setPage(i)">{{i}}</a></td>
+                </div>
             </div>
         </form>
     </body>

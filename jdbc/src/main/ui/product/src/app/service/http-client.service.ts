@@ -31,7 +31,8 @@ export class Criterias{
     public carsModels: string[],
     public carsGenerations: string[],
     public carsMileages: string[],
-    public carsEngines: string[]
+    public carsEngines: string[],
+    public totalPages: number
   ) {}
 }
 
@@ -74,12 +75,14 @@ export class HttpClientService {
 
   public getCars() {
     let isDeleted = JSON.parse(localStorage.getItem('admin')!);
+    let page = JSON.parse(localStorage.getItem('page')!);
     let carCriteria = JSON.parse(localStorage.getItem('CarCriteria')!);
     if(carCriteria == null) {
       carCriteria = new CarCriteria("", "", "", "", 0, 50000, "asc");
     }
     return this.httpClient.post<Criterias>('http://localhost:8080/car/all', {
       isDeleted: isDeleted,
+      page: page,
       carCriteria: carCriteria
     });
   }

@@ -11,6 +11,7 @@ public class CarResponse {
 	private List<String> carsGenerations;
 	private List<String> carsMileages;
 	private List<String> carsEngines;
+	private int totalPages;
 	
 	public CarResponse() {
 		this.cars = new ArrayList<>();
@@ -18,15 +19,17 @@ public class CarResponse {
 		this.carsGenerations = new ArrayList<>();
 		this.carsMileages = new ArrayList<>();
 		this.carsEngines = new ArrayList<>();
+		this.totalPages = 0;
 	}
 	
 	public CarResponse(List<Car> cars, List<String> carsModels, List<String> carsGenerations, List<String> carsMileages,
-			List<String> carsEngines) {
+			List<String> carsEngines, int totalPages) {
 		this.cars = cars;
 		this.carsModels = carsModels;
 		this.carsGenerations = carsGenerations;
 		this.carsMileages = carsMileages;
 		this.carsEngines = carsEngines;
+		this.totalPages = totalPages;
 	}
 
 	public List<Car> getCars() {
@@ -69,10 +72,19 @@ public class CarResponse {
 		this.carsEngines = carsEngines;
 	}
 
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
 	@Override
 	public String toString() {
 		return "CarResponse [cars=" + cars + ", carsModels=" + carsModels + ", carsGenerations=" + carsGenerations
-				+ ", carsMileages=" + carsMileages + ", carsEngines=" + carsEngines + "]";
+				+ ", carsMileages=" + carsMileages + ", carsEngines=" + carsEngines + ", totalPages=" + totalPages
+				+ "]";
 	}
 	
 }
