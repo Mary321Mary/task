@@ -40,7 +40,7 @@ public class HibernateConf {
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.show_sql", "true");
-        hibernateProperties.setProperty("hibernate.ddl-auto", "none");
+        hibernateProperties.setProperty("hibernate.ddl-auto", "validate");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         hibernateProperties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         hibernateProperties.setProperty("current_session_context_class", "thread");
